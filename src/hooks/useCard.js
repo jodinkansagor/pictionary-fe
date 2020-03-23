@@ -1,24 +1,23 @@
 import { useState, useEffect } from 'react';
+const chance = require('chance').Chance();
 import { getCard } from '../services/getCard';
+import { data } from '../data/words';
 
 export const useCard = () => {
   const [cardPhrase, setCardPhrase] = useState('');
-  const [cardLoading, setCardLoading] = useState(true);
-
   
+  const getRandomWord = data => {
+    const card = chance.pickone(data);
+    const word = card.word;
+    return word;
+  };
 
   useEffect(() => {
-    setCardLoading(true);
-    getCard()
-      .then(card => setCardPhrase(card.cardPhrase))
-      .finally(() => setCardLoading(false));
+    setCardPhrase(getRandomWord(data));
   }, []);
 
   const handleClick = () => {
-    setCardLoading(true);
-    getCard()
-      .then(card => setCardPhrase(card.cardPhrase))
-      .finally(() => setCardLoading(false));
+    setCardPhrase(getRandomWord(data));
   };
 
   return { cardPhrase, handleClick };
