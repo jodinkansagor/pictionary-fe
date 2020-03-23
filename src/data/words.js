@@ -1,0 +1,21 @@
+export const data = [
+  { word: 'Coffee', level: 'easy' },
+  { word: 'Dentist', level: 'easy' },
+  { word: 'Book', level: 'easy' },
+  { word: 'Lady Bug', level: 'easy' },
+  { word: 'Crayon', level: 'easy' },
+  { word: 'Dog', level: 'easy' },
+  { word: 'Tree', level: 'easy' },
+  { word: 'Television', level: 'easy' },
+  { word: 'Guball', level: 'medium' },
+  { word: 'Castle', level: 'medium' },
+  { word: 'Megaphone', level: 'medium' },
+  { word: 'Circus Tent', level: 'medium' },
+  { word: 'Tadpole', level: 'medium' },
+  { word: 'Chandelier', level: 'hard' },
+  { word: 'Hockey', level: 'hard' },
+  { word: 'Mechanic', level: 'hard' },
+  { word: 'Tadpole', level: 'hard' },
+  { word: 'Sasquatch', level: 'hard' },
+];
+
