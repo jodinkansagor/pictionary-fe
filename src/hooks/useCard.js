@@ -5,6 +5,8 @@ export const useCard = () => {
   const [cardPhrase, setCardPhrase] = useState('');
   const [cardLoading, setCardLoading] = useState(true);
 
+  
+
   useEffect(() => {
     setCardLoading(true);
     getCard()
