@@ -1,19 +1,94 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const Timer = () => {
+const CountDown = () => {
+
+  const [timerOn, setTimerOn] = useState(false);
+  const [timerStart, setTimerStart] = useState(0);
+  const [timerTime, setTimerTime] = useState(0);
+
+  const timer = () => {
+    setInterval(() => {
+      const newTime = timerTime - 10;
+      if (newTime >= 0) {
+        setTimerTime(newTime);
+      } else {
+        clearInterval(timer);
+        setTimerOn(false);
+        alert('Countdown Ended');
+      }
+    }, 10);
+  }; 
   
+  const startTimer = () => {
+    setTimerOn(true);
+    setTimerTime(timerTime);
+    setTimerStart(timerTime);
+    timer();
+  };
+
+  const resetTimer = () => {
+    if (timerOn === false) {
+      setTimerOn(timerStart);
+    }
+  };
+
+  const stopTimer = () => {
+    clearInterval(timer);
+    setTimerOn(false);
+    resetTimer();
+  };
+
+  const adjustTimer = input => {
+    const max = 216000000;
+    if (!timerOn) {
+      if (input === 'incMinutes' && timerTime + 60000 < max) {
+        setTimerTime(timerTime + 60000);
+      } else if (input === 'decMinutes' && timerTime - 60000 >= 0) {
+        setTimerTime(timerTime - 60000);
+      } else if (input === 'incSeconds' && timerTime + 1000 < max) {
+        setTimerTime(timerTime + 1000);
+      } else if (input === 'decSeconds' && timerTime - 1000 >= 0) {
+        setTimerTime(timerTime - 1000);
+      }
+    }
+  };
+
+  let seconds = ('0' + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
+  let minutes = ('0' + Math.floor((timerTime / 60000) % 60)).slice(-2);
 
   return (
-    <div>
-      <h1></h1>
-      <button>Start</button>
-    </div>
+    <section className="Countdown">
+      <section className="Countdown-header"><div className="Countdown-label">Minutes : Seconds</div>
+        <div className="Countdown-display">
+          <button onClick={() => adjustTimer('incMinutes')}>&#8679;</button>
+          <button onClick={() => adjustTimer('incSeconds')}>&#8679;</button>
+          <button onClick={() => adjustTimer('decMinutes')}>&#8681;</button>
+          <button onClick={() => adjustTimer('decSeconds')}>&#8681;</button>
+        </div>
+        <div className="Countdown-time">
+          {minutes} : {seconds}
+        </div>
+        {timerOn === false &&
+          (timerStart === 0 || timerTime === timerStart) && (
+          <button onClick={startTimer}>Start</button>
+        )}
+        {timerOn === true && timerTime >= 1000 && (
+          <button onClick={stopTimer}>Stop</button>
+        )}
+        {timerOn === false &&
+          (timerStart !== 0 && timerStart !== timerTime && timerTime !== 0) && (
+          <button onClick={startTimer}>Resume</button>
+        )}
+        {(timerOn === false || timerTime < 1000) &&
+          (timerStart !== timerTime && timerStart > 0) && (
+          <button onClick={resetTimer}>Reset</button>
+        )}
+      </section>
+    </section>
   );
-
-
 };
 
-Timer.propTypes = {};
+CountDown.propTypes = {};
 
-export default Timer;
+export default CountDown;

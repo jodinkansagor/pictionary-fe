@@ -27,6 +27,7 @@
   "dependencies": {
     "chance": "^1.1.4",
     "react": "^16.13.1",
+    "react-compound-timer": "^1.2.0",
     "react-dom": "^16.13.1",
     "tiny-timer": "^1.4.0"
   },
