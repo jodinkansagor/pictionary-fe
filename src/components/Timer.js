@@ -1,30 +1,27 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-
 const CountDown = () => {
 
   const [timerOn, setTimerOn] = useState(false);
   const [timerStart, setTimerStart] = useState(0);
   const [timerTime, setTimerTime] = useState(0);
 
-  const timer = () => {
-    setInterval(() => {
-      const newTime = timerTime - 10;
-      if (newTime >= 0) {
-        setTimerTime(newTime);
-      } else {
-        clearInterval(timer);
-        setTimerOn(false);
-        alert('Countdown Ended');
-      }
-    }, 10);
-  }; 
-  
+  let timer;
+
   const startTimer = () => {
     setTimerOn(true);
-    setTimerTime(timerTime);
     setTimerStart(timerTime);
-    timer();
+    setTimerTime(timerTime);
+    timer =
+      setInterval(() => {
+        const newTime = timerTime - 1000;
+        if (newTime >= 0) {
+          setTimerTime(newTime);
+        } else {
+          clearInterval(timer);
+          setTimerOn(false);
+          alert('Countdown Ended');
+        }
+      }, 1000);
   };
 
   const resetTimer = () => {
@@ -71,19 +68,19 @@ const CountDown = () => {
         </div>
         {timerOn === false &&
           (timerStart === 0 || timerTime === timerStart) && (
-          <button onClick={startTimer}>Start</button>
-        )}
+            <button onClick={startTimer}>Start</button>
+          )}
         {timerOn === true && timerTime >= 1000 && (
           <button onClick={stopTimer}>Stop</button>
         )}
         {timerOn === false &&
           (timerStart !== 0 && timerStart !== timerTime && timerTime !== 0) && (
-          <button onClick={startTimer}>Resume</button>
-        )}
+            <button onClick={startTimer}>Resume</button>
+          )}
         {(timerOn === false || timerTime < 1000) &&
           (timerStart !== timerTime && timerStart > 0) && (
-          <button onClick={resetTimer}>Reset</button>
-        )}
+            <button onClick={resetTimer}>Reset</button>
+          )}
       </section>
     </section>
   );
